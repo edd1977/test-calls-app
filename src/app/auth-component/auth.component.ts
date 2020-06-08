@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { SwitchView } from "@angular/common/src/directives/ng_switch";
 
 const BASE_URL = "https://diabolocom-test.herokuapp.com";
 
