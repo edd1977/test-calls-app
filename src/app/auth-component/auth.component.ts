@@ -16,8 +16,8 @@ export class AuthComponent {
             email: 'smile@me.now',
             password: 'nutedau'
         };
-        // Rewrite with MakeRequest
-        http.post(`${BASE_URL}/login`, body).toPromise().then(response => {
+        this.MakeHttpRequest("/login", "post", false, body)
+        .then(response => {
             this.accesssToken = response["accessToken"];
         }).catch(error => {
             console.error(error);
@@ -25,18 +25,13 @@ export class AuthComponent {
     }
 
     getRecords() {
-        // Rewrite with MakeRequest
-        const headers: HttpHeaders = new HttpHeaders().set("Authorization", `Bearer ${this.accesssToken}`);
-        this.http.get(BASE_URL + "/records", { headers }).toPromise()
+        this.MakeHttpRequest("/records", "get", true)
         .then(resp => console.log(resp))
         .catch(err => console.error(err));
     }
 
     getAgents() {
-        // Rewrite with MakeRequest
-        const url = BASE_URL + "/agents";
-        const headers: HttpHeaders = new HttpHeaders().set("Authorization", `Bearer ${this.accesssToken}`);
-        this.http.get(url, { headers }).toPromise()
+        this.MakeHttpRequest("/agents", "get", true)
         .then(resp => console.log(resp))
         .catch(err => console.error(err));
     }
@@ -88,9 +83,11 @@ export class AuthComponent {
         }
         let request: any = null;
         switch(method) {
+            // case 'delete'
             case 'get':
                 request = this.http[method](BASE_URL + url, headers? { headers }: {});
                 break;
+            case 'post':
             case 'put':
                 request = this.http[method](BASE_URL + url, body, headers? { headers }: {});
                 break;
