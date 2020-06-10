@@ -1,28 +1,29 @@
-import { Component } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const BASE_URL = "https://diabolocom-test.herokuapp.com";
 
-@Component({
-    selector: 'auth-component',
-    templateUrl: './auth.component.html'
-})
-export class AuthComponent {
+@Injectable()
+export class HttpService {
 
-    accesssToken: string = "";
-
+    private accesssToken: string = "";
+    
     constructor(private http: HttpClient) {
-        const body = {
-            email: 'smile@me.now',
-            password: 'nutedau'
-        };
-        this.MakeHttpRequest("/login", "post", false, body)
-        .then(response => {
-            this.accesssToken = response["accessToken"];
-        }).catch(error => {
-            console.error(error);
-        });
+        //
     }
+
+    async Authorize(email: string = 'smile@me.now', password: string = 'nutedau'): Promise<any> {
+        const body = {
+            email: email,
+            password: password
+        };
+        const response = await this.MakeHttpRequest("/login", "post", false, body);
+        if(response["accessToken"]) {
+            this.accesssToken = response["accessToken"];
+            return this.accesssToken;
+        }
+        return Promise.reject(response); // error
+    } // Authorize()
 
     getRecords() {
         this.MakeHttpRequest("/records", "get", true)
@@ -75,7 +76,7 @@ export class AuthComponent {
         .catch(err => console.error(err));
     }
 
-    MakeHttpRequest(url: string, method: string, authNeeds: boolean = true, body: object = null): Promise<Object> {
+    private MakeHttpRequest(url: string, method: string, authNeeds: boolean = true, body: object = null): Promise<Object> {
         method = method.toLocaleLowerCase();
         let headers: HttpHeaders = null;
         if(authNeeds) {
@@ -93,6 +94,6 @@ export class AuthComponent {
                 break;
         }
         return request.toPromise();
-    } // MakeHttpRequest()
+    } // MakeHttpRequest()    
 
 }

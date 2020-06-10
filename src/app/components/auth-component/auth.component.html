@@ -1,0 +1,32 @@
+
+<div class="modal" fxLayout="row" fxLayoutAlign="center" >
+    <div class="form" fxFlex="0 0 auto" fxFlexAlign="center" fxLayout="column" >
+        <div class="auth-menu" fxFlexAlign="stretch" fxLayout="row" >
+            <button fxFlex="1 0 100px" (click)="buttonTitle='Log In'"
+                [class.action]="buttonTitle==='Log In'"
+                [class.non-action]="buttonTitle!=='Log In'">Log In</button>
+            <button fxFlex="1 0 100px" (click)="buttonTitle='Register'"
+                [class.action]="buttonTitle==='Register'"
+                [class.non-action]="buttonTitle!=='Register'" >Register</button>
+        </div>
+        <div class="auth-content border" fxFlexAlign="stretch" fxLayout="column" fxFlex="1 1 1100%"
+            fxLayoutAlign="center center" fxLayoutGap="30px" >
+            <div>
+                <label [style.display]="'block'">E-mail:</label>
+                <input [(ngModel)]="email" type="text" >
+            </div>
+
+            <div>
+                <label [style.display]="'block'" >Password:</label>
+                <input [(ngModel)]="password" type="password" >
+            </div>
+
+            <button (click)="doAction($event)" >{{buttonTitle}}</button>
+
+        </div>
+    </div>    
+</div>
+
+<!-- <button (click)="getRecords()" >Records</button>
+<button (click)="getWrapups()" >Wrapups</button>
+<button (click)="getAgents()" >Agents</button> -->
