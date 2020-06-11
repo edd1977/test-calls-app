@@ -9,7 +9,7 @@
                 [class.action]="buttonTitle==='Register'"
                 [class.non-action]="buttonTitle!=='Register'" >Register</button>
         </div>
-        <div class="auth-content border" fxFlexAlign="stretch" fxLayout="column" fxFlex="1 1 1100%"
+        <div class="auth-content border pos-relative" fxFlexAlign="stretch" fxLayout="column" fxFlex="1 1 1100%"
             fxLayoutAlign="center center" fxLayoutGap="30px" >
             <div>
                 <label [style.display]="'block'">E-mail:</label>
@@ -22,6 +22,8 @@
             </div>
 
             <button (click)="doAction($event)" >{{buttonTitle}}</button>
+
+            <button class="btn test pos-absolute" (click)="testAction('CREDENTIALS')" >H</button>
 
         </div>
     </div>    

@@ -6,3 +6,22 @@ html, body {
 body {
     margin: 0px;
 }
+
+.pos-relative {
+    position: relative;
+}
+
+.pos-absolute {
+    position: absolute;
+}
+
+.test {
+    border-radius: 3em;
+    width: 3em;
+    height: 3em;
+    background-color: darkolivegreen;
+    font-weight: bold;
+    color: white;
+    top: 5px;
+    left: 5px;
+}

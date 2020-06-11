@@ -10,11 +10,14 @@ import { HttpService } from './services/http.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from "@angular/router";
 import { routes } from './app.routing';
+import { RecordsComponent } from './components/records-component/records.component';
+import { CanActivateGuard } from './model/canActivate.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
+    RecordsComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import { routes } from './app.routing';
     RouterModule.forRoot(routes)
   ],
   providers: [
-    AppService, HttpService
+    AppService, HttpService,
+    CanActivateGuard
   ],
   bootstrap: [AppComponent]
 })

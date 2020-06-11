@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { HttpService } from 'src/app/services/http.service';
 import { AppService } from 'src/app/services/app.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'auth-component',
@@ -15,19 +14,34 @@ export class AuthComponent {
     email: string;
     password: string;
 
-    constructor(private appSvc: AppService) {
+    constructor(private appSvc: AppService, private router: Router) {
         //    
     }
 
     doAction(e: any) {
         switch(this.buttonTitle) {
             case "Log In":
-                this.appSvc.logIn(this.email, this.password);
-                // TODO:
-                // Go to another component!!!!
+                this.appSvc.logIn(this.email, this.password)
+                .then(resp => {
+                    this.router.navigateByUrl("/records");
+                })
+                .catch(err => {
+                    alert(err);
+                    // tODO - error proccessing.
+                });
+                
                 break;
             case "Register":
                 alert("TODO: in progress...");
+                break;
+        }
+    }
+
+    testAction(actionStr: string) {
+        switch(actionStr) {
+            case "CREDENTIALS":
+                this.email = "smile@me.now";
+                this.password = "nutedau";
                 break;
         }
     }

@@ -7,12 +7,15 @@ const BASE_URL = "https://diabolocom-test.herokuapp.com";
 export class HttpService {
 
     private accesssToken: string = "";
+    get checkAccessToken(): boolean {
+        return this.accesssToken && this.accesssToken.length > 0;
+    }
     
     constructor(private http: HttpClient) {
         //
     }
 
-    async Authorize(email: string = 'smile@me.now', password: string = 'nutedau'): Promise<any> {
+    async Authorize(email: string, password: string): Promise<any> {
         const body = {
             email: email,
             password: password
@@ -26,9 +29,7 @@ export class HttpService {
     } // Authorize()
 
     getRecords() {
-        this.MakeHttpRequest("/records", "get", true)
-        .then(resp => console.log(resp))
-        .catch(err => console.error(err));
+        return this.MakeHttpRequest("/records", "get", true)
     }
 
     getAgents() {
