@@ -1,0 +1,88 @@
+<div fxFlex="1 1 100%" fxLayout="column" fxLayoutAlign="start stretch" class="content" >
+
+    <div fxLayout="row" style="border-bottom: 1px solid white;" >
+        <div fxFlex="10" class="header link" style="border-right: 1px solid white;"
+            [routerLink]="['/record', prevId]" [title]="'Go to id ' + prevId" >
+            <fa-icon class="icon" [icon]="faLeft"></fa-icon>
+        </div>
+        <div fxFlex="1 1 100" class="header" >
+            Record id = {{recordId}}
+        </div>
+        <div fxFlex="10" class="header link" style="border-left: 1px solid white;"
+            [routerLink]="['/record', nextId]" [title]="'Go to id ' + nextId" >
+            <fa-icon class="icon" [icon]="faRight"></fa-icon>
+        </div>
+    </div>
+
+    <div fxLayout="row" >
+        <div fxFlex="40" class="header" style="border-right: 1px solid white;" >
+            Parameter
+        </div>
+        <div fxFlex="60" class="header" >
+            Value
+        </div>
+    </div>
+
+    <div *ngIf="record; else norecordtemplate">
+        <div fxLayout="row" *ngFor="let key of getKeys(); let i = index;" >
+            <div fxFlex="40" class="row left-column" >
+                {{key}}
+            </div>
+            <div [ngSwitch]="key" fxFlex="60" class="row right-column" >
+                <ng-template ngSwitchCase="startedAt">{{record[key] | toDate | date:'dd.MM.yyyy hh:mm'}}</ng-template>
+                <ng-template ngSwitchCase="finishedAt">{{record[key] | toDate | date:'dd.MM.yyyy hh:mm'}}</ng-template>
+                <ng-template ngSwitchCase="duration" >{{record[key] | duration:"sec" }}</ng-template>
+                <ng-template ngSwitchCase="displayedNumber" >{{record[key] | phone}}</ng-template>
+                <ng-template ngSwitchDefault>{{record[key]}}</ng-template>
+            </div>
+        </div>
+        <div fxLayout="row" class="border-bottom-white" >
+            <div fxFlex="100" class="header" >
+                Wrapups:
+            </div>
+        </div>
+        <div fxLayout="row" >
+            <form *ngIf="form" novalidate [formGroup]="form" (ngSubmit)="true" fxFlex="100" fxLayout="row" >
+                <table cols="3" cellspacing="0" fxFlex="1 1 100%" > 
+                    <thead class="head">
+                        <tr>
+                            <td class="border-right-white">Wrapup</td>
+                            <td class="border-right-white">Agent</td>
+                            <td>Comment</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let wp of record.wrapups; let i = index;" >
+                            <td style="text-align: center;">{{wp.wrapupId | lookup:wrapups:"id":"name"}}</td>
+                            <td style="text-align: center;">{{wp.agentId | lookup:agents:"id":getFullName }}</td>
+                            <!-- <td style="text-align: center;">{{wp.wrapupComment}}</td> -->
+                            <td>
+                                <div [ngStyle]="{ 'display': getElementDisplay(wp.wrapupId, 'input')}">
+                                    <input #input  name="{{wp.wrapupId}}" formControlName="{{'id' + wp.wrapupId}}" [style.flex]="'1 1 100%'"
+                                        class="cursive" (blur)="blurElement(wp.wrapupId)" >
+                                    <button (click)="editElement(wp.wrapupId)" >Cancel</button>
+                                </div>
+                                <div [ngStyle]="{ 'display': getElementDisplay(wp.wrapupId, 'text')}">
+                                <!-- <div [style.display]="getElementDisplay(wp.wrapupId, 'text')" > -->
+                                    <span [style.flex]="'1 1 100%'" >{{wp.wrapupComment}}</span>
+                                    <button (click)="editElement(wp.wrapupId, input)" >Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <div *ngIf="formIsReady()" >
+        {{ form.value | json }}
+    </div>
+
+</div>
+<ng-template #norecordtemplate>
+    <div fxLayout="row" fxFlex="1 1 100" fxLayoutAlign="center center">
+        NO RECORD
+    </div>
+</ng-template>
+

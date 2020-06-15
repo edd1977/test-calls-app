@@ -1,1 +1,32 @@
-Records Component is here!
+
+<div fxFlex="1 1 100%" fxLayout="column" fxLayoutAlign="start stretch" class="content" >
+
+    <table cols="5" cellspacing="0" fxFlex="1 1 100%" > 
+        <thead class="head">
+            <tr>
+                <td>Call Id</td>
+                <td>Call start</td>
+                <td>Call ended</td>
+                <td>Call duration</td>
+                <td>Contact</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let call of records; let i = index;" >
+                <td style="text-align: right;" >
+                    <div fxLayout="row">
+                        <div fxFlex="1 1 100" fxLayout="row" fxLayoutAlign="start">
+                            <fa-icon class="icon" [icon]="faEdit" [routerLink]="'/record/' + call.id" title="{{'See the call, id=' + call.id}}" ></fa-icon>
+                        </div>
+                        <div>{{call.id}}</div>
+                    </div>
+                </td>
+                <td style="text-align: center;">{{call.startedAt | toDate | date:'dd.MM.yyyy hh:mm'}}</td>
+                <td style="text-align: center;">{{call.finishedAt | toDate | date:'dd.MM.yyyy hh:mm'}}</td>
+                <td style="text-align: center;">{{call.duration | duration:"sec"}}</td>
+                <td style="text-align: center;">{{call.displayedNumber | phone}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

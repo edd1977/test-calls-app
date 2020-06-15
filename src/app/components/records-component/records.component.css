@@ -1,0 +1,24 @@
+.content {
+    padding: 10px;
+    overflow: auto;
+}
+
+.head {
+    background: cadetblue;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+td {
+    border: cadetblue 1px solid;
+    padding: 5px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.icon {
+    cursor: pointer;
+}

@@ -19,9 +19,14 @@ body {
     border-radius: 3em;
     width: 3em;
     height: 3em;
-    background-color: darkolivegreen;
+    background-color: cadetblue;
     font-weight: bold;
     color: white;
     top: 5px;
     left: 5px;
+}
+
+app-records {
+    flex: 1 1 100%;
+    display: flex;
 }

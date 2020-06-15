@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Wrapups } from '../model/record.model';
+import { Users } from '../model/user.model';
 
 const BASE_URL = "https://diabolocom-test.herokuapp.com";
 
@@ -32,10 +34,12 @@ export class HttpService {
         return this.MakeHttpRequest("/records", "get", true)
     }
 
+    getRecord(id: number) {
+        return this.MakeHttpRequest("/records/" + id, "get", true);
+    }
+
     getAgents() {
-        this.MakeHttpRequest("/agents", "get", true)
-        .then(resp => console.log(resp))
-        .catch(err => console.error(err));
+        return this.MakeHttpRequest("/agents", "get", true);
     }
 
     addRecord(data: any) {
@@ -62,19 +66,18 @@ export class HttpService {
         // GET /users/id
     }
 
-    getUsers() {
+    getUsers(): Promise<Users> {
         // GET /users
+        return this.MakeHttpRequest("/users", "get", true) as Promise<Users>;
     }
 
     updateUser(data: any) {
         // PUT /users/id {body}
     }
 
-    getWrapups() {
+    getWrapups(): Promise<Wrapups> {
         // GET /wrapups
-        this.MakeHttpRequest("/wrapups", "get", true)
-        .then(resp => console.log(resp))
-        .catch(err => console.error(err));
+        return this.MakeHttpRequest("/wrapups", "get", true) as Promise<Wrapups>;
     }
 
     private MakeHttpRequest(url: string, method: string, authNeeds: boolean = true, body: object = null): Promise<Object> {
