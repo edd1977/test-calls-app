@@ -47,4 +47,9 @@ export class AppService {
         return this.agents;
     }
 
+    async updateRecord(data: Record): Promise<object> {
+        const response = this.http.updateRecord(data);
+        return response;
+    }
+
 }

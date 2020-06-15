@@ -30,3 +30,10 @@ app-records {
     flex: 1 1 100%;
     display: flex;
 }
+
+button.btn {
+    font-weight: bold;
+    border-color: cadetblue;
+    padding: 5px;
+
+}

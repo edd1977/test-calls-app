@@ -1,6 +1,10 @@
 <div fxFlex="1 1 100%" fxLayout="column" fxLayoutAlign="start stretch" class="content" >
 
     <div fxLayout="row" style="border-bottom: 1px solid white;" >
+        <div fxFlex="5" class="header link" style="border-right: 1px solid white;"
+            [routerLink]="['/records']" [title]="'Return to records list'" >
+            <fa-icon class="icon" [icon]="faList"></fa-icon>
+        </div>
         <div fxFlex="10" class="header link" style="border-right: 1px solid white;"
             [routerLink]="['/record', prevId]" [title]="'Go to id ' + prevId" >
             <fa-icon class="icon" [icon]="faLeft"></fa-icon>
@@ -42,7 +46,7 @@
             </div>
         </div>
         <div fxLayout="row" >
-            <form *ngIf="form" novalidate [formGroup]="form" (ngSubmit)="true" fxFlex="100" fxLayout="row" >
+            <form *ngIf="form" novalidate [formGroup]="form" (ngSubmit)="saveData()" fxFlex="100" fxLayout="column" >
                 <table cols="3" cellspacing="0" fxFlex="1 1 100%" > 
                     <thead class="head">
                         <tr>
@@ -56,30 +60,34 @@
                             <td style="text-align: center;">{{wp.wrapupId | lookup:wrapups:"id":"name"}}</td>
                             <td style="text-align: center;">{{wp.agentId | lookup:agents:"id":getFullName }}</td>
                             <!-- <td style="text-align: center;">{{wp.wrapupComment}}</td> -->
-                            <td>
-                                <div [ngStyle]="{ 'display': getElementDisplay(wp.wrapupId, 'input')}">
-                                    <input #input  name="{{wp.wrapupId}}" formControlName="{{'id' + wp.wrapupId}}" [style.flex]="'1 1 100%'"
-                                        class="cursive" (blur)="blurElement(wp.wrapupId)" >
-                                    <button (click)="editElement(wp.wrapupId)" >Cancel</button>
+                            <td >
+                                <div [ngStyle]="{ 'display': (wp.wrapupId == editableId)?'flex':'none' }">
+                                    <input #input  name="{{wp.wrapupId}}" formControlName="{{'id' + wp.wrapupId}}"
+                                        (keyup.enter)="onEnterEvent($event)"
+                                        (keydown.esc)="cancelEdit()"
+                                        [style.flex]="'1 1 100%'" class="cursive" >
+                                    <fa-icon class="icon" [icon]="faUndo" (click)="cancelEdit()" [style.marginLeft.px]="5"></fa-icon>
+                                    <!-- <button (click)="cancelEdit()" [style.marginLeft.px]="5" type="button" >Cancel</button> -->
                                 </div>
-                                <div [ngStyle]="{ 'display': getElementDisplay(wp.wrapupId, 'text')}">
-                                <!-- <div [style.display]="getElementDisplay(wp.wrapupId, 'text')" > -->
-                                    <span [style.flex]="'1 1 100%'" >{{wp.wrapupComment}}</span>
-                                    <button (click)="editElement(wp.wrapupId, input)" >Edit</button>
+                                <div [style.display]="(wp.wrapupId == editableId)?'none':'flex'">
+                                    <span [style.flex]="'1 1 100%'" >{{form.value['id' + wp.wrapupId]}}</span>
+                                    <fa-icon class="icon" [icon]="faEdit" (click)="editElement(wp.wrapupId, input)" [style.marginLeft.px]="5"></fa-icon>
+                                    <!-- <button (click)="editElement(wp.wrapupId, input)" [style.marginLeft.px]="5" type="button" >Edit</button> -->
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="5px" class="table-footer" >
+                    <button type="submit" class="btn" [disabled]="form.pristine || editableId != null" >Save changess</button>
+                    <button type="button" class="btn" (click)="resetForm()" [disabled]="form.pristine || editableId != null" >Cancel changess</button>
+                </div>
             </form>
         </div>
     </div>
-
-    <div *ngIf="formIsReady()" >
-        {{ form.value | json }}
-    </div>
-
 </div>
+
+
 <ng-template #norecordtemplate>
     <div fxLayout="row" fxFlex="1 1 100" fxLayoutAlign="center center">
         NO RECORD

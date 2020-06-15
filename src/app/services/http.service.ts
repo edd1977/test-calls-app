@@ -52,6 +52,7 @@ export class HttpService {
 
     updateRecord(data: any) {
         // PUT /records/id {body}
+        return this.MakeHttpRequest("/records/" + data.id, "put", true, data);
     }
 
     addUser(data: any) {

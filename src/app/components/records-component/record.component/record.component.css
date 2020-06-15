@@ -67,3 +67,8 @@ div.border-bottom-white {
 .cursive {
     font-style: italic;
 }
+
+.table-footer {
+    padding: 5px;
+    border: 1px solid cadetblue;
+}
