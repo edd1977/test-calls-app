@@ -23,20 +23,20 @@ div.form {
 }
 
 .border {
-    border: 1px solid black;
+    border: 1px solid cadetblue;
     border-top: none;
 }
 
 button.action {
     font-weight: bold;
-    border-top: solid 1px black;
-    border-left: solid 1px black;
-    border-right: solid 1px black;
+    border-top: solid 1px cadetblue;
+    border-left: solid 1px cadetblue;
+    border-right: solid 1px cadetblue;
     border-bottom: none;
     background: lightgrey;
 }
 button.non-action {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid cadetblue;
     border-top: none;
     border-left: none;
     border-right: none;

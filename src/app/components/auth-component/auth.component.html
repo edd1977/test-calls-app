@@ -2,10 +2,10 @@
 <div class="modal" fxLayout="row" fxLayoutAlign="center" >
     <div class="form" fxFlex="0 0 auto" fxFlexAlign="center" fxLayout="column" >
         <div class="auth-menu" fxFlexAlign="stretch" fxLayout="row" >
-            <button fxFlex="1 0 100px" (click)="buttonTitle='Log In'"
+            <button #btnLogIn fxFlex="1 0 100px" (click)="buttonTitle='Log In'"
                 [class.action]="buttonTitle==='Log In'"
                 [class.non-action]="buttonTitle!=='Log In'">Log In</button>
-            <button fxFlex="1 0 100px" (click)="buttonTitle='Register'"
+            <button *ngIf="false" fxFlex="1 0 100px" (click)="buttonTitle='Register'"
                 [class.action]="buttonTitle==='Register'"
                 [class.non-action]="buttonTitle!=='Register'" >Register</button>
         </div>
@@ -21,7 +21,7 @@
                 <input [(ngModel)]="password" type="password" >
             </div>
 
-            <button class="btn" (click)="doAction($event)" >{{buttonTitle}}</button>
+            <button #btnAction class="btn" (click)="doAction($event)" >{{buttonTitle}}</button>
 
             <button class="btn test pos-absolute" (click)="testAction('CREDENTIALS')" >H</button>
 

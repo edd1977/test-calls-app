@@ -61,6 +61,7 @@ export class HttpService {
 
     addUser(data: any) {
         // POST /users {body}
+        return this.MakeHttpRequest("/users", "put", false, data);
     }
 
     deleteUser(id: number) {

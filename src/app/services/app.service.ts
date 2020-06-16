@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AppService {
 
+    currentUserName: string = null;
+
     records: Records = [];
     wrapups: Wrapups = [];
     users: Users = [];
@@ -20,11 +22,18 @@ export class AppService {
     }
 
     logIn(email: string, pass: string): Promise<any> {
-        return this.http.Authorize(email, pass);
+        return this.http.Authorize(email, pass)
+        .then(u => {
+            this.currentUserName = email;
+            return Promise.resolve<any>(u);
+        }).catch(err => {
+            return Promise.reject<any>(err);
+        });
     }
 
     LogOut() {
         this.http.LogOut();
+        this.currentUserName = null;
         this.router.navigateByUrl("/");
     }
 
@@ -60,6 +69,11 @@ export class AppService {
     async updateRecord(data: Record): Promise<object> {
         const response = this.http.updateRecord(data);
         return response;
+    }
+
+    async addUser(u: User): Promise<object> {
+        const resp = this.http.addUser(u);
+        return resp;
     }
 
 }

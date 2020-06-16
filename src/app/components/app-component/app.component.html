@@ -2,7 +2,8 @@
 <div class="main" fxLayout="column" fxLayoutAlign="center"
   fxFlex="100" fxLayoutGap="10px" >
 
-  <div class="menu" fxLayout="row" >
+  <div class="menu" fxLayout="row" fxLayoutAlign="start center" >
+    <div class="note" >{{appSvc?.currentUserName}}</div>
     <button class="btn" [disabled]="!appSvc.authoraized" (click)="logOut()" >Log Out</button>
   </div>
 
