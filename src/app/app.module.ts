@@ -18,6 +18,7 @@ import { PhonePipe } from './model/phone.pipe';
 import { DurationPipe } from './model/duration.pipe';
 import { RecordComponent } from "./components/records-component/record.component/record.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { CanDeactivateGuard } from './model/canDeactivate.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
   ],
   providers: [
     AppService, HttpService,
-    CanActivateGuard
+    CanActivateGuard, CanDeactivateGuard
   ],
   bootstrap: [AppComponent]
 })

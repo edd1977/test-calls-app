@@ -1,8 +1,9 @@
 
-<div class="main" fxLayout="row" >
+<div class="main" fxLayout="column" fxLayoutAlign="center"
+  fxFlex="100" fxLayoutGap="10px" >
 
-  <div class="menu border" fxFlex="0 0 300px" >
-
+  <div class="menu" fxLayout="row" >
+    <button class="btn" [disabled]="!appSvc.authoraized" (click)="logOut()" >Log Out</button>
   </div>
 
   <div class="content border" fxFlex="1 1 100%" fxLayout="row" >

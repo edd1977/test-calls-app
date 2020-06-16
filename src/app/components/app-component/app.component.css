@@ -1,18 +1,14 @@
 div.main {
     /* background: cyan; */
     height: 100%;
-    width: 100%
+    width: 100%;
+    padding: 10px;
 }
 
 div.menu {
-    margin: 10px;
-}
-
-div.content {
-    margin: 10px;
-    margin-left: 0px;
+    /**/
 }
 
 div.border {
-    border: blue 1px solid;
+    border: cadetblue 1px solid;
 }

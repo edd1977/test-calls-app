@@ -12,7 +12,7 @@ import { getForm, getFormModel } from './record.form.model';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { NONE_TYPE } from '@angular/compiler';
-import { from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: "app-records",
@@ -141,5 +141,15 @@ export class RecordComponent {
 
     formIsReady() {
         return this.form;
+    }
+
+    canDeactivate(): boolean | Observable<boolean> {
+        if(!this.form.pristine && this.form.touched ) {
+            return new Observable(subj => {
+                subj.next(!confirm("There are unsaved data. Stay here?"));
+                subj.complete();
+            });
+        }
+        return true;
     }
 }

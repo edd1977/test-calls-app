@@ -30,6 +30,10 @@ export class HttpService {
         return Promise.reject(response); // error
     } // Authorize()
 
+    LogOut() {
+        this.accesssToken = "";
+    }
+
     getRecords() {
         return this.MakeHttpRequest("/records", "get", true)
     }

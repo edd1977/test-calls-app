@@ -26,8 +26,8 @@ export class AuthComponent {
                     this.router.navigateByUrl("/records");
                 })
                 .catch(err => {
+                    console.error(err);
                     alert(err);
-                    // tODO - error proccessing.
                 });
                 
                 break;

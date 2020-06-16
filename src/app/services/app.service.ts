@@ -4,6 +4,7 @@ import { HttpService } from './http.service';
 import { Records, Wrapups, Record } from '../model/record.model';
 import { Users, User } from '../model/user.model';
 import { Agents } from '../model/agents.model';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -14,12 +15,21 @@ export class AppService {
     users: Users = [];
     agents: Agents;
 
-    constructor(private http: HttpService) {
+    constructor(private http: HttpService, private router: Router) {
         //
     }
 
     logIn(email: string, pass: string): Promise<any> {
         return this.http.Authorize(email, pass);
+    }
+
+    LogOut() {
+        this.http.LogOut();
+        this.router.navigateByUrl("/");
+    }
+
+    get authoraized(): boolean {
+        return this.http.checkAccessToken;
     }
 
     async getRecords(): Promise<Records> {
